@@ -3,7 +3,9 @@ package com.supera.matheus.ecommerceGames.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.supera.matheus.ecommerceGames.exception.RegraNegocioException;
 import com.supera.matheus.ecommerceGames.model.entity.Produtos;
@@ -21,28 +23,6 @@ public class ProdutosServiceImpl implements ProdutosService{
 		this.repository = repository;
 		this.carrinho = carrinho;
 	}
-
-	@Override
-	public List<Produtos> ordenarPorNome(Produtos produtoFiltro) {
-		String nome = produtoFiltro.getNome();
-		
-		return repository.findByNomeIgnoreCaseContaining(nome);
-	}
-	
-	@Override
-	public List<Produtos> ordenarPorPreco(Produtos produtoFIltro) {
-		BigDecimal preco = produtoFIltro.getPreco();
-		
-		return repository.findByPrecoIgnoreCaseContaining(preco);
-	}
-
-	@Override
-	public List<Produtos> ordenarPorScore(Produtos produtoFiltro) {
-		short score = produtoFiltro.getScore();
-		
-		return repository.findByScoreIgnoreCaseContaining(score);
-	}
-	
 
 	@Override
 	public List<Produtos> adcionar(Produtos produtos) {
@@ -65,5 +45,19 @@ public class ProdutosServiceImpl implements ProdutosService{
 		}
 		
 	}
+
+	@Override
+	@Transactional
+	public Produtos inserir(Produtos produto) {
+		
+		return repository.save(produto);
+	}
+
+	@Override
+	public List<Produtos> listar(Pageable pageable) {
+	
+		return (List<Produtos>) repository.findAll(pageable);
+	}
+
 
 }

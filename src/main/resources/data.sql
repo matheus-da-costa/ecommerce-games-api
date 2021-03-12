@@ -1,0 +1,2 @@
+INSERT INTO produtos VALUES(1, 'Call Of Duty Infinite Warfare', 49.99, 80, 'call-of-duty-infinite-warfare.png');
+INSERT INTO produtos VALUES(2, 'The Witcher III Wild Hunt', 119.5, 250, 'the-witcher-iii-wild-hunt.png');
